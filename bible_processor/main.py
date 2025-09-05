@@ -69,7 +69,7 @@ def process_all_files(folder_path: str, output_dir: str, book_name: str = None):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Process Bible HTML files to markdown.")
-    parser.add_argument("input_dir", nargs="?", help="Input directory containing HTML files")
+    parser.add_argument("input_dir", nargs="?", default="RcvBible_Footnotes/Jubilee Bible", help="Input directory containing HTML files")
     parser.add_argument("output_dir", nargs="?", default="Bible", help="Output directory for markdown files")
     parser.add_argument('--book_name', type=str, help="Name of the book to process (optional)")
     args = parser.parse_args()

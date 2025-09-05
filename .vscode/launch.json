@@ -11,7 +11,7 @@
       "module": "bible_processor.main",
       "justMyCode": false,
       "console": "integratedTerminal",
-      "args": ["--book_name", "Matt"]  // <--- Add your CLI argument here
+      // "args": ["--book_name", "Matt"]
     }
   ]
 }
