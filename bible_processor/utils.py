@@ -24,11 +24,6 @@ def cleanup_markdown(text, current_book):
     text = text.replace(f"]][[Bible", f"]]\n\n[[Bible")
     text = text.replace(f"]]**[[Bible", f"]]\n\n**[[Bible")
     text = text.replace(f"]][[", f"]]\n[[")
-    # text = re.sub( # Not sure what
-    #     rf"(\(?)(\[\[{current_book}#\^o)",
-    #     lambda m: f"\n\n{m.group(1)}{m.group(2)}",
-    #     text
-    # )
     text = text.replace(f"\n\n\n", f"\n\n")
     text = re.sub(r"^Book of [^\[]+\[\[", "\n[[", text)
     text = re.sub(r"^\[\[([^#]*)#\^o", r"\n\[\[\1#^o", text)
