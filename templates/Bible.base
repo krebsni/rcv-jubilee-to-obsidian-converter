@@ -1,0 +1,48 @@
+formulas:
+  Untitled: ""
+views:
+  - type: table
+    name: Table
+    filters:
+      and:
+        - "!Version.isEmpty()"
+    order:
+      - file.name
+      - book
+      - Subject
+      - Author(s)
+      - Place of Writing
+      - Time of Writing/Ministry
+      - Recipient(s)
+      - Time Period Covered
+      - Object of His Ministry
+      - Place of His Ministry
+      - Place of the Record
+    sort:
+      - property: Index
+        direction: ASC
+    columnSize:
+      file.name: 78
+      note.book: 123
+      note.Subject: 426
+      note.Author(s): 300
+      note.Recipient(s): 182
+  - type: cards
+    name: View
+    filters:
+      and:
+        - "!Version.isEmpty()"
+    order:
+      - book
+      - Author(s)
+      - Subject
+      - Time of Writing/Ministry
+      - Place of Writing
+      - Time Period Covered
+    sort:
+      - property: Index
+        direction: ASC
+    image: note.book
+    cardSize: 130
+    imageFit: ""
+    imageAspectRatio: 0.35
