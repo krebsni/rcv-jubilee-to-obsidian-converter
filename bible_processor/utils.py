@@ -793,6 +793,10 @@ def generate_property_string(properties: dict, current_book: str) -> dict:
     sorted_keys = desired_order + [k for k in properties if k not in desired_order]
     properties = {k: properties[k] for k in sorted_keys if k in properties}
 
+    for key in properties:
+      if isinstance(properties[key], str):
+        properties[key] = properties[key].replace(": ", " — ")
+
     return '---\n' + "\n".join([f"{key}: {value}" for key, value in properties.items()]) + '\n---\n'
 
 def insert_frontmatter_and_final_cleanup(text: str, front_matter: str, current_book: str, properties: dict) -> str:
