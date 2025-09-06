@@ -3,7 +3,7 @@ import re
 from bs4 import BeautifulSoup, NavigableString
 from typing import Dict, Any
 import re
-from .constants import BOOK_ABBR, BOOK_ABBR_INDEX, BOOK_ABBR_REVERSE, JUBILEE_ABRV_TO_FULL_BOOK, JUBILEE_ABRV_TO_FULL_BOOK_REVERSE, OUTLINE_MAP
+from .constants import BIBLEHUB_INTERLINEAR, BOOK_ABBR, BOOK_ABBR_INDEX, BOOK_ABBR_REVERSE, JUBILEE_ABRV_TO_FULL_BOOK, JUBILEE_ABRV_TO_FULL_BOOK_REVERSE, OUTLINE_MAP
 
 def replace_tags(soup, tag_name, replace_func):
     """Replace all tags of a given type in soup using replace_func."""
@@ -794,6 +794,20 @@ def generate_property_string(properties: dict, current_book: str) -> dict:
 
     return '---\n' + "\n".join([f"{key}: {value}" for key, value in properties.items()]) + '\n---\n'
 
+def add_biblehub_link_to_line(line: str, current_book: str) -> str:
+    """
+    Add BibleHub interlinear link to lines ending with ^N or ^N-M.
+    """
+    from .constants import BIBLEHUB_INTERLINEAR
+    m = re.search(r'(\s\^(\d+(?:-\d+)?))$', line)
+    if m:
+        chapter_verse = m.group(2)
+        url = f"https://biblehub.com/interlinear/" + f"{BIBLEHUB_INTERLINEAR[current_book]}/{chapter_verse}.htm"
+        # Insert [ ](url) before the anchor
+        line = re.sub(r'(\s\^(\d+)(-\d+)?)$', f' [ ]({url})\\1', line)
+    return line
+
+
 def insert_frontmatter_and_final_cleanup(text: str, front_matter: str, current_book: str, properties: dict) -> str:
     """
     Insert front matter at the beginning of the text.
@@ -813,6 +827,7 @@ def insert_frontmatter_and_final_cleanup(text: str, front_matter: str, current_b
     for i, line in enumerate(lines):
       # [ **par.** [[GenN#^1-1x1a|1]] [[GenN#^1-1x1a|2]] [[GenN#^1-1x1a|3]] [[GenN#^1-1x1a|4]] ] -> \[ **par.** [[GenN#^1-1x1a|1]] [[GenN#^1-1x1a|2]] [[GenN#^1-1x1a|3]] [[GenN#^1-1x1a|4]] \]
       line = line.strip()
+      line = add_biblehub_link_to_line(line, current_book)
 
       if "[[Bible|Book]] | " in line:
         result.append(f"# {BOOK_ABBR_REVERSE.get(current_book)}\n")

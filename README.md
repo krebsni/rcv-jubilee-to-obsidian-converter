@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 ## Upcoming Improvements / To-Do
 - Add link to Biblehub Interlinear by adding [-](https://biblehub.com/interlinear/zephaniah/1-2.htm) after "|-]]" in verse lines
-- Check outline level logic
+- Check outline level logic, e.g. Gen, Rom
 - Change broken paragraph lines
 - Change link to outline in `-` to `<book> (Book)` notes
 - Add template `Bible` file and include in Bible folder
